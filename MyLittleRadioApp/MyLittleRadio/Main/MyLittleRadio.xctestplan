@@ -1,0 +1,71 @@
+{
+  "configurations" : [
+    {
+      "id" : "BCB1946F-D6ED-40FB-B702-10225F0183FF",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MyLittleRadio.xcodeproj",
+      "identifier" : "06AD00FC2CC10D020093665F",
+      "name" : "MyLittleRadio"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MyLittleRadio\/StationsListFeature",
+        "identifier" : "StationsListFeatureTests",
+        "name" : "StationsListFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyLittleRadio\/MyLittleDesignSystem",
+        "identifier" : "MyLittleDesignSystemTests",
+        "name" : "MyLittleDesignSystemTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyLittleRadio\/Domain",
+        "identifier" : "DomainTests",
+        "name" : "DomainTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyLittleRadio\/StationDetailsFeature",
+        "identifier" : "StationDetailsFeatureTests",
+        "name" : "StationDetailsFeatureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyLittleRadio\/Data",
+        "identifier" : "DataTests",
+        "name" : "DataTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MyLittleRadio.xcodeproj",
+        "identifier" : "06AD010D2CC10D030093665F",
+        "name" : "MyLittleRadioTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:MyLittleRadio\/MyLittlePlayer",
+        "identifier" : "MyLittlePlayerTests",
+        "name" : "MyLittlePlayerTests"
+      }
+    }
+  ],
+  "version" : 1
+}
