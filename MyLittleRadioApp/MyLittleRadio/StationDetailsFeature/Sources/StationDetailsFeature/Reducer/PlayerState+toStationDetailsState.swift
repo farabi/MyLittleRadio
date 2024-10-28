@@ -7,6 +7,8 @@
 
 import MyLittlePlayer
 
+// MARK: PlayerState
+
 extension PlayerState {
     var toStationDetailsState: StationDetailsFeature.State.PlayerState {
         switch self {

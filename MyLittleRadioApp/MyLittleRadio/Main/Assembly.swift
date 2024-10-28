@@ -10,6 +10,8 @@ import Dependencies
 import DependenciesMacros
 import Domain
 
+// MARK: FetchStations + DependencyKey
+
 extension FetchStations: @retroactive DependencyKey {
     public static let liveValue: Self = .init(
         {

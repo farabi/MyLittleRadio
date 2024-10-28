@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: PlayerState
+
 public enum PlayerState: Sendable, Equatable {
     case stopped
     case paused

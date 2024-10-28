@@ -7,6 +7,8 @@
 
 import Domain
 
+// MARK: Station + toDomain
+
 extension Station {
     var toDomain: StationEntity {
         StationEntity(

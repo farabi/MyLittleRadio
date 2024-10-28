@@ -7,6 +7,8 @@
 
 import ComposableArchitecture
 
+// MARK: FetchStationsUseCase
+
 public class FetchStationsUseCase {
     // MARK: Lifecycle
 

@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+// MARK: StationDetailsFeature.State
+
 public extension StationDetailsFeature.State {
     enum PlayerState {
         case stopped

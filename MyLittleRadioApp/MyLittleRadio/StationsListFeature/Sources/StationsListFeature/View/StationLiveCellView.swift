@@ -6,7 +6,10 @@
 //
 
 import MyLittleDesignSystem
+import StationDetailsFeature
 import SwiftUI
+
+// MARK: StationLiveCellView
 
 struct StationLiveCellView: View {
     // MARK: Internal
@@ -20,15 +23,34 @@ struct StationLiveCellView: View {
                                               Image.placeholder),
                           size: Constants.imageSize,
                           foregroundColor: .white)
-                RFDSText(station.title)
+                    .padding(Spacing.tiny())
+                RFDSText(station.title, color: .white)
+                    .bold()
                 Spacer()
             }
+            .background(gradient)
+            .cornerRadius(Radius.small())
         }
     }
 
     // MARK: Private
 
     private enum Constants {
-        static let imageSize: CGFloat = 40
+        static let imageSize: CGFloat = 60
+    }
+
+    @ViewBuilder
+    private var gradient: some View {
+        LinearGradient(gradient: Gradient(colors: [station.color.opacity(0.7),
+                                                   station.color]),
+                       startPoint: .top,
+                       endPoint: .bottom)
+            .background(navigationLink.opacity(.zero))
+    }
+
+    @ViewBuilder
+    private var navigationLink: some View {
+        NavigationLink(state: StationDetailsFeature.State(station: station.toDetails,
+                                                          playState: .stopped)) {}
     }
 }

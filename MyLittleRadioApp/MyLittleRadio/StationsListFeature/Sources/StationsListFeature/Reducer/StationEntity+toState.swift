@@ -8,6 +8,8 @@
 import Domain
 import Foundation
 
+// MARK: StationEntity
+
 extension StationEntity {
     var toState: StationsListFeature.State.StationItemState? {
         guard let streamUrl = URL(string: streamUrl) else {

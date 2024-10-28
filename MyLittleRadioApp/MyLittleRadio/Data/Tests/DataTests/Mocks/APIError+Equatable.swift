@@ -8,7 +8,8 @@
 import Foundation
 @testable import Data
 
-/// Extension to conform to Equatable
+// MARK: APIError + Equatable
+
 extension APIError: Equatable {
     public static func == (lhs: APIError, rhs: APIError) -> Bool {
         switch (lhs, rhs) {

@@ -5,6 +5,8 @@ import Dependencies
 import StationsListFeature
 import SwiftUI
 
+// MARK: MyLittleRadioApp
+
 @main
 struct MyLittleRadioApp: App {
     var body: some Scene {

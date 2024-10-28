@@ -5,6 +5,8 @@ import MyLittleDesignSystem
 import StationDetailsFeature
 import SwiftUI
 
+// MARK: StationsView
+
 public struct StationsView: View {
     // MARK: Lifecycle
 
@@ -49,22 +51,14 @@ public struct StationsView: View {
     private var stationsList: some View {
         NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
             List(store.stations) { station in
-                NavigationLink(state: StationDetailsFeature.State(station: .init(id: station.id,
-                                                                                 title: station.title,
-                                                                                 imageUrl: station.imageUrl,
-                                                                                 streamUrl: station.streamUrl,
-                                                                                 color: station.color),
-                                                                  playState: .stopped)) {
-                    StationLiveCellView(station: station)
-                }
-                .buttonStyle(.borderless)
+                StationLiveCellView(station: station)
+                    .listRowSeparator(.hidden)
             }
-            .listStyle(.inset)
+            .listStyle(.plain)
             .navigationTitle("My Little Radio")
-            .tint(.red)
         } destination: { store in
             StationDetailsView(store: store)
-        }.toolbarBackground(.red, for: .navigationBar)
+        }
     }
 
     @ViewBuilder

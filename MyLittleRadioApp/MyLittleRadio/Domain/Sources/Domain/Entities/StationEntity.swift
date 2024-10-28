@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: StationEntity
+
 public struct StationEntity: Equatable, Identifiable {
     // MARK: Lifecycle
 

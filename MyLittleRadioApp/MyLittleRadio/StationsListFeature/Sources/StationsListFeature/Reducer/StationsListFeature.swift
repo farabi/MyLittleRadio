@@ -6,6 +6,8 @@ import Foundation
 import StationDetailsFeature
 import SwiftUI
 
+// MARK: StationsListFeature
+
 @Reducer
 public struct StationsListFeature {
     // MARK: Lifecycle
