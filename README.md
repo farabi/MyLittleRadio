@@ -1,101 +1,55 @@
-# Technical Test - My Little Radio
 
-&#x20;This project is built with **SwiftUI** and **The Composable Architecture (TCA)**. We understand that TCA might not be familiar to all candidates, so we have provided a basic application skeleton to help you get started.
+# MyLittleRadio
 
-## Project Overview
+MyLittleRadio is an iOS app developed as a technical test project for Radio France. It uses SwiftUI, Clean Architecture principles, and TCA (The Composable Architecture) to provide a modular and efficient streaming experience for radio stations.
 
-The project consists of:
+## Features
 
-1. **SwiftUI Application**: The initial app displays a list of radio stations without any specific design. This list is managed by a **Reducer** and uses a mock data dependency provided via TCA's **dependencies** module.
+- **Navigation**: Users can select a station from the list to view details.
+- **Streaming**: Integrates audio streaming in the station detail view.
+- **Enhanced UI**: Designed for an improved user experience using custom animations and reusable UI elements within a Design System module.
 
-2. **Mock Server**: We have included a simple Node.js server that exposes a list of radio stations. The server can be started to serve data from `http://localhost:3000/stations`.
+## Architecture
 
-The goal of this test is to assess your ability to enhance an existing SwiftUI application using TCA principles, improve the UI, and add meaningful features.
+The project follows a clean, modular architecture built around TCA and Clean Architecture principles:
 
-## JSON Data Format
+### Modules
 
-The data from the Node.js server is structured in the following format:
+- **Design System**: Contains reusable UI components, animations, and design tokens for spacing, border, and radius.
+- **Player Library**: Wraps the underlying streaming framework to manage audio playback.
+- **Data Module**: Manages API interactions and contains the Station model, mapped directly from server responses.
+- **Domain Module**: Encapsulates business logic independently, containing Station entities mapped from the Data module’s model. Dependency inversion is applied by overriding `DependencyKey` initialization.
+- **Feature Modules (Presentation)**: Each feature module has TCA components (Store, state, and action) and View, mapping Domain entities to UI-friendly view states.
 
-```
-{
-  "stations": [
-    {
-      "id": "7",
-      "brandId": "FIP",
-      "title": "FIP",
-      "hasTimeshift": false,
-      "shortTitle": "Fip",
-      "type": "on_air",
-      "streamUrl": "https://icecast.radiofrance.fr/fip-midfi.mp3",
-      "analytics": {
-        "value": "fip",
-        "stationAudienceId": 7
-      },
-      "liveRule": "apprf_fip_player",
-      "colors": {
-        "primary": "#e2007a"
-      },
-      "assets": {
-        "squareImageUrl": "https://www.radiofrance.fr/s3/cruiser-production/2022/05/a174aea6-c3f3-4a48-a42c-ebc034f62c10/1000x1000_squareimage_fip_v2.jpg"
-      },
-      "isMusical": true
-    },
-    ...
-  ]
-}
-```
+<img src="Images/CleanLittleRadio.drawio.png" >
 
-## Requirements
+## Data Flow and Model Mapping
 
-We'd like you to enhance the project with the following features:
+Data flows through the app in distinct layers following Clean Architecture principles:
 
-1. **Replace Mock Data with Server Call**
+1. **Data Layer**: The raw data is fetched from the API and parsed into a `Station` model specific to the data layer.
+2. **Domain Layer**: The data layer’s `Station` model is mapped to a `StationEntity` in the domain layer. This entity is used to encapsulate business logic independently and to maintain flexibility within the core logic, avoiding dependencies on external data formats.
+3. **Presentation Layer**: The `StationEntity` is then transformed into view-specific states that represent the UI needs. This approach ensures that UI components are decoupled from business and data logic, resulting in clean, testable, and maintainable code.
 
-   - Replace the mock station data with a network call to the Node.js server at `http://localhost:3000/stations` to fetch the list of stations.
+<img src="Images/LittleDataFlow.drawio.png" >
 
-2. **Navigation to Station Details Page**
+### TCA Integration
 
-   - When a user clicks on a station in the list, they should be navigated to a details page for that station.
-   - The detail page should be implemented in accordance with the existing architecture (using TCA's Reducer and View principles).
+- The app follows TCA conventions, organizing the presentation logic into reducers and views. 
+- The main module initiates only the starting module, which autonomously handles subsequent flows, minimizing logic within the main app module.
 
-3. **Play Station Stream**
+## Testing
 
-   - Add functionality to allow users to play the stream of a selected station.
-   - This should be integrated in the details page and respect TCA's architecture.
+- **Unit Testing**: Used the new **Swift testing framework** alongside TCA testing tools.
+- **Test Plan**: Includes a test plan that consolidates tests across all modules, enabling streamlined testing.
 
-4. **Improved User Interface**
+## UI and UX Enhancements
 
-   - Enhance the overall look and feel of the application using **SwiftUI**.
-   - Feel free to use animations, custom components, or anything that can improve the user experience.
+- **Efficient List Rendering**: Utilizes `List` instead of `LazyVStack` for improved memory efficiency.
+- **Modular Components**: Custom UI components and design tokens provide a consistent look and feel.
 
-## Getting Started
+## Development Tools
 
-1. **Fork the Repository**
-
-   - Fork the project repository from the provided URL.
-
-2. **Run the Mock Server**
-
-   - Navigate to the `server` folder.
-   - Run `npm install` to install the necessary dependencies.
-   - Start the server with `node server.js`.
-
-3. **Run the iOS Project**
-
-   - Open the Xcode project.
-   - Trust and enable the macros for the TCA and Dependencies libraries to ensure proper functionality.
-   - The app should be able to run and display a list of mock stations generated locally.
-
-## Submission Guidelines
-
-- Fork the repository and make your changes.
-- Please include a README file detailing the changes you've made, including any decisions or trade-offs you encountered you've made and any decisions or trade-offs you faced.
-
-## Evaluation Criteria
-
-- **Architecture**: How well you respect and extend the existing TCA architecture.
-- **Code Quality**: Readability, organization, and use of best practices.
-- **Functionality**: Successful implementation of the requested features.
-- **User Interface**: Design quality and overall user experience.
-
-Feel free to ask questions if anything is unclear. Good luck, and happy coding!
+- **SwiftFormat**: Used with a custom configuration to enforce code consistency.
+- **SwiftLint**: Applied with autocorrect to maintain code quality.
+- **Periphery**: Utilized to detect unused code for a cleaner codebase.
