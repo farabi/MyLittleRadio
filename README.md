@@ -13,9 +13,9 @@ The project has been done following a clean, modular architecture built on top o
 
 ### Modules
 
-- Data Module: Responsible for API interactions; the Station model is directly mapped from server responses.
-- Domain Module: Encapsulates business logic; includes Station entities mapped from the model of the Data module. It follows dependency inversion with the re-implementation of initialization of `DependencyKey`.
-- Feature Modules [Presentation]: Each feature module would have a composition of TCA components (Store, state, action) and View, which map Domain entities to UI-friendly view states.
+- **Data Module**: Responsible for API interactions; the Station model is directly mapped from server responses.
+- **Domain Module**: Encapsulates business logic, includes Station entities mapped from the model of the Data module. 
+- **Feature Modules** [Presentation]: Each feature module would have a composition of TCA components (Store, state, action) and View, which map Domain entities to UI-friendly view states.
 
 <img src="Images/CleanLittleRadio.drawio.png" >
 
@@ -28,40 +28,43 @@ Data flows through the app in clear separations in layering, abiding by Clean Ar
 
 <img src="Images/LittleDataFlow.drawio.png" >
 
+## Dependency Inversion
+
+The project implements **dependency inversion** by re-implementing the initialization of `DependencyKey`. This approach allows the Domain layer to access the Data layer's functionality indirectly, respecting Clean Architecture principles by removing direct dependencies to domain. 
+
+
 ### Player Library
 
-* Wraps around the underpinning AVPlayer framework, which is in charge of playing audio.
+* Wraps AVPlayer framework, which is in charge of playing audio.
 
 ## Design System
 
-The **Design System** module is designed with reusability in mind to make sure the UI is consistent and includes:
+The **Design System** according to Atomic design principle, to have reusable UI components:
 
-- **UI Components**: Reusable SwiftUI components, animations, and styling elements-spacing, borders, and radius.
+- **UI Components**: Reusable SwiftUI components, animations, text images ...
 
-- **Custom Constants**: So far, the design system has utilized manually defined constants, especially when there is a need for public access across modules.
+- **Custom Constants**: reusabe and consistant elements-spacing, borders, and radius...
 
-- **Asset Management**: General assets use Xcode's automatic asset catalog generation. This efficiently maintains standard assets while keeping the necessary design constants public with its manual configurations.
+- **Asset Management**: Generated assets using Xcode's automatic asset catalog. however in order to make generated images public, we wrap asserts catalog images in an enum.
 
 <img src="Images/designsystem.png" width="400" >
 
 ## TCA Integration
 
-- The app is designed per the norms of TCA and presentation logic is well-separated into Reducers and Views.
+- The app is designed according TCA and presentation logic is well-separated into Reducers and Views.
 - Main module starts only the initial module, which handles the application flow itself with least logic inside the main application module.
 
 ## Testing
 
 - **Unit Testing**: New **Swift testing framework** used along with the TCA testing tools.
-
 - **Test Plan**: Included test plan that combines the tests inside all modules. This makes testing easy.
 
 ## UI and UX Enhancements
 
-ListTile Rendering: Using of `List` instead of `LazyVStack` to efficiently use memory.
-Modular Components: Created Custom UI components with design tokens for a consistent look and feel.
+- **ListTile Rendering**: Using of `List` instead of `LazyVStack` of stations list to efficiently use memory.
 
 ## Development Tools
 
-SwiftFormat: Added but with custom configuration so the code consistency is maintained.
-SwiftLint: It allows autocorrect to maintain quality in code.
-Periphery: It helps in the detection of the unused code.
+- **SwiftFormat**: I runned SwiftFormat over the project with custom configuration file.
+- **SwiftLint**: I used Swiftlint autocorrect to fix SwiftLint warnings automaticaly.
+- **Periphery**: It helps in the detection of the unused code.
