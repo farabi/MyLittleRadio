@@ -5,18 +5,25 @@ MyLittleRadio is an iOS app developed as a technical test project for Radio Fran
 
 ## Features
 
-- **Navigation**: Users can select a station from the list to view details.
-- **Streaming**: Integrates audio streaming in the station detail view.
-- **Enhanced UI**: Designed for an improved user experience using custom animations and reusable UI elements within a Design System module.
+- **Station details**: Users can select a station from the list to Station details.
+- **Streaming**: Integrates live streaming in the station detail view.
 
-## Architecture
+## Design System
+
+The **Design System** module is crafted to ensure a cohesive and reusable UI, containing:
+
+- **UI Components**: Reusable SwiftUI components, animations, and styling elements (spacing, borders, and radius).
+- **Custom Constants**: To ensure key constants are publicly accessible, manually defined constants are used within the design system, especially where public access is required across modules.
+- **Asset Management**: General assets leverage Xcode’s automatic asset catalog generation. This approach efficiently manages standard assets while keeping necessary design constants public through manual configurations.
+
+<img src="Images/designsystem.png" >
+
+## Clean Architecture
 
 The project follows a clean, modular architecture built around TCA and Clean Architecture principles:
 
 ### Modules
 
-- **Design System**: Contains reusable UI components, animations, and design tokens for spacing, border, and radius.
-- **Player Library**: Wraps the underlying streaming framework to manage audio playback.
 - **Data Module**: Manages API interactions and contains the Station model, mapped directly from server responses.
 - **Domain Module**: Encapsulates business logic independently, containing Station entities mapped from the Data module’s model. Dependency inversion is applied by overriding `DependencyKey` initialization.
 - **Feature Modules (Presentation)**: Each feature module has TCA components (Store, state, and action) and View, mapping Domain entities to UI-friendly view states.
@@ -32,6 +39,11 @@ Data flows through the app in distinct layers following Clean Architecture princ
 3. **Presentation Layer**: The `StationEntity` is then transformed into view-specific states that represent the UI needs. This approach ensures that UI components are decoupled from business and data logic, resulting in clean, testable, and maintainable code.
 
 <img src="Images/LittleDataFlow.drawio.png" >
+
+### Player Library
+
+- Wraps the underlying AVPlayer framework to manage audio playback.
+
 
 ### TCA Integration
 
