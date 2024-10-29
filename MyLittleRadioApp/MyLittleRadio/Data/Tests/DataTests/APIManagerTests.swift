@@ -14,7 +14,6 @@ enum APIManagerTests {
     // MARK: - FetchStations Tests
 
     struct FetchStations {
-        /// Setup
         let sut = APIManager(session: MockURLSession())
 
         // MARK: - Successful Fetch Test

@@ -11,7 +11,7 @@ import Domain
 
 extension Station {
     var toDomain: StationEntity {
-        StationEntity(
+        .init(
             id: id,
             title: title,
             streamUrl: streamUrl,

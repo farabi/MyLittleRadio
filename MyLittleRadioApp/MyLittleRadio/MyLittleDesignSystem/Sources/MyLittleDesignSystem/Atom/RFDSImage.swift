@@ -7,10 +7,14 @@
 
 import SwiftUI
 
+// MARK: RFDSImage
+
 public struct RFDSImage: View {
     // MARK: Lifecycle
 
-    public init(source: RFDSImage.Source, size: CGFloat? = nil, foregroundColor: Color? = nil) {
+    public init(source: RFDSImage.Source,
+                size: CGFloat? = nil,
+                foregroundColor: Color? = nil) {
         self.source = source
         self.size = size
         self.foregroundColor = foregroundColor
@@ -25,46 +29,65 @@ public struct RFDSImage: View {
         // MARK: Lifecycle
 
         public init(url: URL, placeholder: Image?) {
-            self = .asyncImage(url, placeholder) // Image(.placeholder)
+            self = .asyncImage(url, placeholder)
         }
     }
 
     public var body: some View {
         switch source {
         case let .image(image):
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .foregroundColor(foregroundColor)
-                .frame(width: size, height: size)
+            imageView(image)
         case let .asyncImage(url, placeHolder):
             if let url {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                } placeholder: {
-                    if let placeHolder {
-                        placeHolder
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    }
-                }
-                .foregroundColor(foregroundColor)
-                .frame(width: size, height: size)
+                asyncImage(url, placeHolder)
             } else {
-                placeHolder?
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .foregroundColor(foregroundColor)
-                    .frame(width: size, height: size)
+                placeHolderView(placeHolder)
             }
         }
     }
 
     // MARK: Private
 
+    // MARK: Properties
+
     private let source: Source
     private let size: CGFloat?
     private let foregroundColor: Color?
+
+    // MARK: ViewBuilders
+
+    @ViewBuilder
+    private func imageView(_ image: Image) -> some View {
+        image
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .foregroundColor(foregroundColor)
+            .frame(width: size, height: size)
+    }
+
+    @ViewBuilder
+    private func asyncImage(_ url: URL, _ placeHolder: Image?) -> some View {
+        AsyncImage(url: url) { image in
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+        } placeholder: {
+            if let placeHolder {
+                placeHolder
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            }
+        }
+        .foregroundColor(foregroundColor)
+        .frame(width: size, height: size)
+    }
+
+    @ViewBuilder
+    private func placeHolderView(_ placeHolderImage: Image?) -> some View {
+        placeHolderImage?
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .foregroundColor(foregroundColor)
+            .frame(width: size, height: size)
+    }
 }

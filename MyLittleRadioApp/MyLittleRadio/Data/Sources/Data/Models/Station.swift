@@ -37,6 +37,8 @@ struct Station: Codable, Equatable, Identifiable {
     let assets: Assets?
     let isMusical: Bool
 
+    // MARK: - Equatable
+
     static func == (lhs: Station, rhs: Station) -> Bool {
         lhs.id == rhs.id
     }

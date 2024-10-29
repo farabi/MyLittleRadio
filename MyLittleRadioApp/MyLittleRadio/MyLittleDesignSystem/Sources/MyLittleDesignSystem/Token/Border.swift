@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: CopiloteBorder
+
 public enum CopiloteBorder: CGFloat, CaseIterable {
     /// No border (0 pt)
     case none = 0

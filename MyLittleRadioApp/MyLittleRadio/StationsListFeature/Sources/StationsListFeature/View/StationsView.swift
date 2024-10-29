@@ -41,11 +41,17 @@ public struct StationsView: View {
 
     // MARK: Private
 
+    // MARK: Constants
+
     private enum Constants {
         static let imageSize: CGFloat = 100
     }
 
+    // MARK: Properties
+
     @Perception.Bindable private var store: StoreOf<StationsListFeature>
+
+    // MARK: ViewBuilder
 
     @ViewBuilder
     private var stationsList: some View {
@@ -78,11 +84,10 @@ public struct StationsView: View {
             Button(action: {
                 store.send(.fetchStations)
             }) {
-                RFDSText("Try Again")
+                RFDSText("Try Again", color: .white)
                     .font(.headline)
-                    .foregroundColor(.white)
                     .padding()
-                    .background(Color.blue)
+                    .background(.blue)
                     .cornerRadius(Radius.small())
             }
             .padding(.horizontal, Spacing.medium())

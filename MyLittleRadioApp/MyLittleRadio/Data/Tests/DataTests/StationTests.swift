@@ -22,7 +22,6 @@ enum StationTests {
     // MARK: - Station Decoding Tests
 
     struct DecodingTests {
-        /// Tests if Station decodes correctly from JSON data
         @Test(
             "decodes station from JSON data",
             .tags(.stationConversion)
@@ -38,7 +37,6 @@ enum StationTests {
             #expect(station.assets?.squareImageUrl == "https://example.com/image.png")
         }
 
-        /// Tests if Station decodes correctly without optional fields
         @Test(
             "decodes station without assets",
             .tags(.stationConversion)
@@ -58,7 +56,6 @@ enum StationTests {
     // MARK: - Station to Domain Tests
 
     struct ToDomainTests {
-        /// Tests Station to StationEntity conversion
         @Test(
             "converts station to domain entity correctly",
             .tags(.stationConversion)
@@ -68,14 +65,9 @@ enum StationTests {
             let station = try decoder.decode(Station.self, from: Samples.validStationData)
             let domainEntity = station.toDomain
 
-            #expect(domainEntity.id == Samples.mockStationEntity.id)
-            #expect(domainEntity.title == Samples.mockStationEntity.title)
-            #expect(domainEntity.streamUrl == Samples.mockStationEntity.streamUrl)
-            #expect(domainEntity.primaryColor == Samples.mockStationEntity.primaryColor)
-            #expect(domainEntity.squareImageUrl == Samples.mockStationEntity.squareImageUrl)
+            #expect(domainEntity == Samples.mockStationEntity)
         }
 
-        /// Tests Station to StationEntity conversion with nil asset image
         @Test(
             "converts to domain entity with default image URL",
             .tags(.stationConversion)

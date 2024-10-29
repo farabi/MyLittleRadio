@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: Spacing
+
 public enum Spacing: CGFloat, CaseIterable {
     /// No spacing (0 pt)
     case none = 0

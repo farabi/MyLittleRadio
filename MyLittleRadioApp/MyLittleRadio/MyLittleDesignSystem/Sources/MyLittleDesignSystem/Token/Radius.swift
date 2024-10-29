@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: Radius
+
 public enum Radius: CGFloat, CaseIterable {
     /// No radius (0 pt)
     case none = 0

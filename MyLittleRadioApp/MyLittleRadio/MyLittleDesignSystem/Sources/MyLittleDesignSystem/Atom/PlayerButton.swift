@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: PlayerButton
+
 public struct PlayerButton: View {
     // MARK: Lifecycle
 
@@ -70,6 +72,7 @@ public struct PlayerButton: View {
         }
     }
 
+    @ViewBuilder
     private var backgroundCircle: some View {
         Circle()
             .fill(foregroundColor)

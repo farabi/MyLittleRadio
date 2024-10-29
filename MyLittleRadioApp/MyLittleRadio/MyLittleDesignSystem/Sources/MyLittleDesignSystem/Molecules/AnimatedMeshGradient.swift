@@ -7,7 +7,10 @@
 
 import SwiftUI
 
-/// I wanted to use Meshgradient, but it's iOS 18 min 😭😭😭 so i improvised this using RadialGradient
+// MARK: AnimatedMeshGradient
+
+/// I wanted to use Meshgradient, but it's iOS 18 min 😭😭😭
+/// So i improvised this using RadialGradient
 public struct AnimatedMeshGradient: View {
     // MARK: Lifecycle
 
@@ -21,41 +24,11 @@ public struct AnimatedMeshGradient: View {
 
     public var body: some View {
         ZStack {
-            RadialGradient(
-                gradient: Gradient(colors: [
-                    baseColor.opacity(0.8),
-                    .white.opacity(0.3),
-                    baseColor.opacity(0.7)
-                ]),
-                center: animate ? .topLeading : .bottomTrailing,
-                startRadius: animate ? 100 : 200,
-                endRadius: animate ? 400 : 300
-            )
-
-            RadialGradient(
-                gradient: Gradient(colors: [
-                    baseColor.opacity(0.5),
-                    .white.opacity(0.1),
-                    baseColor.opacity(0.7)
-                ]),
-                center: animate ? .bottomTrailing : .topLeading,
-                startRadius: animate ? 200 : 100,
-                endRadius: animate ? 300 : 400
-            )
-            .blendMode(.overlay)
-
-            AngularGradient(
-                gradient: Gradient(colors: [
-                    .white.opacity(0.2),
-                    baseColor.opacity(0.6),
-                    baseColor.opacity(0.7)
-                ]),
-                center: .center
-            )
-            .blur(radius: 30)
-            .blendMode(.softLight)
+            radialHalo(.topLeading, .bottomTrailing)
+            radialHalo(.bottomTrailing, .topLeading)
+            angularGradient
         }
-        .blur(radius: 20)
+        .blur(radius: Radius.large())
         .foregroundColor(baseColor)
         .onChange(of: isAnimating) { newValue in
             if newValue {
@@ -69,14 +42,27 @@ public struct AnimatedMeshGradient: View {
         }
     }
 
-    // MARK: Internal
-
-    let baseColor: Color
-    @Binding var isAnimating: Bool
-
     // MARK: Private
 
+    // MARK: Properties
+
+    private let baseColor: Color
+    @Binding private var isAnimating: Bool
     @State private var animate = false
+
+    @ViewBuilder
+    private var angularGradient: some View {
+        AngularGradient(
+            gradient: Gradient(colors: [
+                .white.opacity(0.2),
+                baseColor.opacity(0.6),
+                baseColor.opacity(0.7)
+            ]),
+            center: .center
+        )
+        .blur(radius: Radius.large())
+        .blendMode(.softLight)
+    }
 
     private func startAnimation() {
         withAnimation(
@@ -85,5 +71,22 @@ public struct AnimatedMeshGradient: View {
         ) {
             animate.toggle()
         }
+    }
+
+    // MARK: ViewBuilders
+
+    @ViewBuilder
+    private func radialHalo(_ from: UnitPoint, _ to: UnitPoint) -> some View {
+        RadialGradient(
+            gradient: Gradient(colors: [
+                baseColor.opacity(0.5),
+                .white.opacity(0.1),
+                baseColor.opacity(0.7)
+            ]),
+            center: animate ? from : to,
+            startRadius: animate ? 200 : 100,
+            endRadius: animate ? 300 : 400
+        )
+        .blendMode(.overlay)
     }
 }
