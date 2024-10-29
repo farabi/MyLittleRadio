@@ -108,11 +108,9 @@ The **Design System** according to Atomic design principle, to have reusable UI 
 
 - The app is designed according TCA and presentation logic is well-separated into Reducers and Views.
 
-```
 > **Note**
 > The main module does not include any UI logic or navigation, it calls only the starting module, and this last is autonomous and can by it's own, present other pages from other modules. this ensures to avoid exposing internal modules components into the main module.
 
-```  
 
 ## Testing
 
